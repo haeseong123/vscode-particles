@@ -38,7 +38,7 @@ jobs:
             # cache hit을 하지 못했다면 dependencies를 설치합니다.
             - name: Install Dependencies
               if: steps.cache.outputs.cache-hit != 'true'
-              run: npm install
+              run: npm ci
 
             # "npm run test"를 실행합니다.
             - name: Run tests

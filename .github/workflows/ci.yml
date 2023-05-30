@@ -3,11 +3,11 @@ name: CI
 # 트리거
 on:
     push:
-        # master branch에 push 할 때 해당 CI가 실행됩니다.
-        branches: [master]
+        # main branch에 push 할 때 해당 CI가 실행됩니다.
+        branches: [main]
     pull_request:
-        # master branch에 pull_request 요청 시 해당 CI가 실행됩니다.
-        branches: [master]
+        # main branch에 pull_request 요청 시 해당 CI가 실행됩니다.
+        branches: [main]
 
 # 작업
 jobs:

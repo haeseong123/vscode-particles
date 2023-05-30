@@ -18,11 +18,11 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            # node 14.x 버전을 사용합니다.
-            - name: Use Node.js 14.x
+            # node 16.x 버전을 사용합니다.
+            - name: Use Node.js 16.x
               uses: actions/setup-node@v3
               with:
-                node-version: 14.x
+                node-version: 16.x
                 cache: 'npm'
 
             # cache를 위한 명령줄 입니다.
@@ -38,8 +38,11 @@ jobs:
             # cache hit을 하지 못했다면 dependencies를 설치합니다.
             - name: Install Dependencies
               if: steps.cache.outputs.cache-hit != 'true'
-              run: npm ci
+              run: npm install
 
             # "npm run test"를 실행합니다.
+            # GUI 테스트를 위해 xvfb를 사용합니다.
             - name: Run tests
-              run: npm run test
+              uses: coactions/setup-xvfb@v1.0.1
+              with:
+                run: npm run test

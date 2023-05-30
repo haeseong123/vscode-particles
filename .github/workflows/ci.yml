@@ -1,0 +1,45 @@
+name: CI
+
+# 트리거
+on:
+    push:
+        # master branch에 push 할 때 해당 CI가 실행됩니다.
+        branches: [master]
+    pull_request:
+        # master branch에 pull_request 요청 시 해당 CI가 실행됩니다.
+        branches: [master]
+
+# 작업
+jobs:
+    test:
+        # 리눅스 환경에서 아래 작업을 실행합니다.
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+
+            # node 14.x 버전을 사용합니다.
+            - name: Use Node.js 14.x
+              uses: actions/setup-node@v3
+              with:
+                node-version: 14.x
+                cache: 'npm'
+
+            # cache를 위한 명령줄 입니다.
+            - name: Cache node modules
+              id: cache
+              uses: actions/cache@v3
+              with:
+                path: node_modules
+                # 나중에 해당 cache 데이터를 찾을 때 사용할 key 값을 설정합니다.
+                # runner의 os 혹은 package-lock.json 값이 바뀌면 key 값도 바뀝니다. 
+                key: ${{ runner.os }}-npm-packages-${{ hashFiles('**/package-lock.json') }}
+
+            # cache hit을 하지 못했다면 dependencies를 설치합니다.
+            - name: Install Dependencies
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: npm install
+
+            # "npm run test"를 실행합니다.
+            - name: Run tests
+              run: npm run test

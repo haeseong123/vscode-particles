@@ -42,6 +42,7 @@ jobs:
 
             # "npm run test"를 실행합니다.
             # GUI 테스트를 위해 xvfb를 사용합니다.
+            # https://hs-archive.tistory.com/109
             - name: Run tests
               uses: coactions/setup-xvfb@v1.0.1
               with:

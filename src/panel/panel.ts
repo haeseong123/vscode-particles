@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { ParticleType } from '../common/types';
+import { amongUs, lights, snow } from '../common/options';
 
 /**
  * Manages particle coding webview panels
@@ -38,7 +39,7 @@ export class ParticlePanel {
             'Particle Coding',
             column || vscode.ViewColumn.One,
             {
-                enableScripts: true
+                enableScripts: true,
             }
         );
 
@@ -63,7 +64,7 @@ export class ParticlePanel {
         // This happens when the user closes the panel or when the panel is closed programmatically
         this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
 
-       // Handle messages from the webview
+        // Handle messages from the webview
         this._panel.webview.onDidReceiveMessage(
             message => {
                 switch (message.command) {
@@ -102,63 +103,59 @@ export class ParticlePanel {
         webview.html = this._getHtmlForWebview(webview);
     }
 
+    private _getParticleOptions(): string {
+        switch (this._particleType) {
+            case ParticleType.snow:
+                return JSON.stringify(snow);
+            case ParticleType.lights:
+                return JSON.stringify(lights);
+            case ParticleType.amongUs:
+                return JSON.stringify(amongUs);
+            default:
+                return JSON.stringify(amongUs);
+        }
+    }
+
     private _getHtmlForWebview(webview: vscode.Webview) {
-        // Local path to main script run in the webview
-        // const scriptPathOnDisk = vscode.Uri.joinPath(this._extensionUri, 'media', 'main.js');
-
-        // And the uri we use to load this script in the webview
-        // const scriptUri = webview.asWebviewUri(scriptPathOnDisk);
-
-        // Local path to css styles
-        // const styleResetPath = vscode.Uri.joinPath(this._extensionUri, 'media', 'reset.css');
-        // const stylesPathMainPath = vscode.Uri.joinPath(this._extensionUri, 'media', 'vscode.css');
-
-        // Uri to load styles into webview
-        // const stylesResetUri = webview.asWebviewUri(styleResetPath);
-        // const stylesMainUri = webview.asWebviewUri(stylesPathMainPath);
+        // Convert a TypeScript value or object to a JSON string.
+        const particleOptions = this._getParticleOptions();
 
         // Use a nonce to only allow specific scripts to be run
-        // const nonce = getNonce();
+        const nonce = getNonce();
 
-        // return `<!DOCTYPE html>
-        // 	<html lang="en">
-        // 	<head>
-        // 		<meta charset="UTF-8">
-
-        // 		<!--
-        // 			Use a content security policy to only allow loading images from https or from our extension directory,
-        // 			and only allow scripts that have a specific nonce.
-        // 		-->
-        // 		<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; img-src ${webview.cspSource} https:; script-src 'nonce-${nonce}';">
-
-        // 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        // 		<link href="${stylesResetUri}" rel="stylesheet">
-        // 		<link href="${stylesMainUri}" rel="stylesheet">
-
-        // 		<title>Cat Coding</title>
-        // 	</head>
-        // 	<body>
-        // 		<img src="${particleGifPath}" width="300" />
-        // 		<h1 id="lines-of-code-counter">0</h1>
-
-        // 		<script nonce="${nonce}" src="${scriptUri}"></script>
-        // 	</body>
-        // 	</html>`;
         return `<!DOCTYPE html>
-			<html lang="en">
-			<body>
-                <h1>"${this._particleType}"</h1>
-			</body>
-			</html>`;
+        	<html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+
+                    <!-- Use a content security policy to only allow scripts that have a specific nonce. -->
+                    <meta http-equiv="Content-Security-Policy" 
+                    content="default-src 'none'; 
+                    img-src ${webview.cspSource} https:;
+                    script-src 'nonce-${nonce}';">
+
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+                    <title>Particles Coding</title>
+                </head>
+                <body>
+                    <div id="tsparticles"></div>
+                    <script nonce="${nonce}" src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.6/tsparticles.bundle.min.js"></script>
+                    <script nonce="${nonce}" type="text/javascript">
+                        console.log("hello") 
+                        console.log("hi") 
+                        tsParticles.load("tsparticles", ${particleOptions});
+                    </script>
+                </body> 
+        	</html>`;
     }
 }
 
-// function getNonce() {
-//     let text = '';
-//     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-//     for (let i = 0; i < 32; i++) {
-//         text += possible.charAt(Math.floor(Math.random() * possible.length));
-//     }
-//     return text;
-// }
+function getNonce() {
+    let text = '';
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < 32; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+}

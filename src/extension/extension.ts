@@ -10,6 +10,7 @@ import { ParticlePanel } from '../panel/panel';
 export function activate(context: vscode.ExtensionContext) {
     // https://www.youtube.com/watch?v=5lBfKZoqaMA
     // https://www.youtube.com/watch?v=u8y2vCkZubk
+    // https://github.com/microsoft/vscode-extension-samples/blob/main/webview-sample/README.md
     context.subscriptions.push(
         vscode.commands.registerCommand('vscode-particles.set-particle', async () => {
             const selectedParticleType = await vscode.window.showQuickPick(
@@ -26,8 +27,3 @@ export function activate(context: vscode.ExtensionContext) {
         })
     );
 }
-
-// This method is called when your extension is deactivated
-// export function deactivate() {
-//     console.log('deactive !!');
-// }

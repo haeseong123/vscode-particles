@@ -1,11 +1,11 @@
 export const enum ParticleType {
     snow = 'snow',
-    rain = 'rain',
-    someOther = 'someOther',
+    lights = 'lights',
+    amongUs = 'Among Us',
 }
 
 export const ALL_PARTICLES = [
     ParticleType.snow,
-    ParticleType.rain,
-    ParticleType.someOther,
+    ParticleType.lights,
+    ParticleType.amongUs,
 ];

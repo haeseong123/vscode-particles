@@ -130,9 +130,11 @@ export class ParticlePanel {
 
                     <!-- Use a content security policy to only allow scripts that have a specific nonce. -->
                     <meta http-equiv="Content-Security-Policy" 
-                    content="default-src 'none'; 
-                    img-src ${webview.cspSource} https:;
-                    script-src 'nonce-${nonce}';">
+                          content="default-src 'none'; 
+                                   img-src ${webview.cspSource} https:;
+                                   script-src 'nonce-${nonce}' 'strict-dynamic';
+                                   "
+                    >
 
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -142,8 +144,6 @@ export class ParticlePanel {
                     <div id="tsparticles"></div>
                     <script nonce="${nonce}" src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.6/tsparticles.bundle.min.js"></script>
                     <script nonce="${nonce}" type="text/javascript">
-                        console.log("hello") 
-                        console.log("hi") 
                         tsParticles.load("tsparticles", ${particleOptions});
                     </script>
                 </body> 

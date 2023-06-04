@@ -11,6 +11,7 @@ export function activate(context: vscode.ExtensionContext) {
     // https://www.youtube.com/watch?v=5lBfKZoqaMA
     // https://www.youtube.com/watch?v=u8y2vCkZubk
     // https://github.com/microsoft/vscode-extension-samples/blob/main/webview-sample/README.md
+    // https://medium.com/frontend-developers/vs-code-extension-%EA%B0%9C%EB%B0%9C%ED%95%98%EA%B8%B0-ae933343d2b5
     context.subscriptions.push(
         vscode.commands.registerCommand('vscode-particles.set-particle', async () => {
             const selectedParticleType = await vscode.window.showQuickPick(

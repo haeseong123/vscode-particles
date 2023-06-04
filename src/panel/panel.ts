@@ -18,18 +18,19 @@ export class ParticlePanel {
     private _disposables: vscode.Disposable[] = [];
 
     public static createOrShow(particleType: ParticleType) {
-        const column = vscode.window.activeTextEditor
-            ? vscode.window.activeTextEditor.viewColumn
-            : undefined;
-
         // If we already have a panel, show it.
         if (ParticlePanel.currentPanel) {
-            if (ParticlePanel.currentPanel._particleType !== particleType) {
+            const panelColumn = ParticlePanel.currentPanel._panel.viewColumn;
+            const isActive = ParticlePanel.currentPanel._panel.active;
+
+            if (
+                particleType !== ParticlePanel.currentPanel._particleType
+            ) {
                 ParticlePanel.currentPanel._particleType = particleType;
                 ParticlePanel.currentPanel._update();
             }
 
-            ParticlePanel.currentPanel._panel.reveal(column);
+            ParticlePanel.currentPanel._panel.reveal(panelColumn, isActive);
             return;
         }
 
@@ -37,7 +38,7 @@ export class ParticlePanel {
         const panel = vscode.window.createWebviewPanel(
             ParticlePanel.viewType,
             'Particle Coding',
-            column || vscode.ViewColumn.One,
+            vscode.ViewColumn.Two,
             {
                 enableScripts: true,
             }

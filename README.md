@@ -8,7 +8,7 @@ vscode-particles is a Visual Studio Code extension that provides several particl
 
 open the command palette with `Ctrl+Shift+P` on Windows/Linux or `Cmd(⌘)+Shift+P` on MacOS.
 
-Just select "Set Particle" and select the Particle you want.
+Just select `Set Particle` and select the Particle you want.
 
 ## Contributing
 

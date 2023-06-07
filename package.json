@@ -1,14 +1,30 @@
 {
   "name": "vscode-particles",
   "displayName": "vscode-particles",
-  "description": "vscode-particles",
+  "description": "Particles for your VS Code",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.78.0"
   },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/haeseong123/vscode-particles"
+  },
+  "homepage": "https://github.com/haeseong123/vscode-particles",
+  "bugs": "https://github.com/haeseong123/vscode-particles/issues",
+  "publisher": "namhaeseong",
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "particle",
+    "particles",
+    "snow",
+    "lights",
+    "among us"
+  ],
+  "license": "MIT",
+  "icon": "icon.png",
   "activationEvents": [],
   "main": "./out/extension/extension.js",
   "contributes": {

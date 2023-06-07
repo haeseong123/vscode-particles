@@ -2,7 +2,7 @@
   "name": "vscode-particles",
   "displayName": "vscode-particles",
   "description": "Particles for your VS Code",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "engines": {
     "vscode": "^1.78.0"
   },

@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { ParticleType } from '../common/types';
-import { amongUs, lights, snow } from '../common/options';
+import { amongUs, fruitShop, lights, snow } from '../common/options';
 
 /**
  * Manages particle coding webview panels
@@ -112,6 +112,8 @@ export class ParticlePanel {
                 return JSON.stringify(lights);
             case ParticleType.amongUs:
                 return JSON.stringify(amongUs);
+            case ParticleType.fruitShop:
+                return JSON.stringify(fruitShop);
             default:
                 return JSON.stringify(amongUs);
         }

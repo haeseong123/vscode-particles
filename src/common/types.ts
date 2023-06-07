@@ -5,6 +5,7 @@ export const enum ParticleType {
     fruitShop = 'Fruit Shop',
     fireworks = 'Fireworks',
     confetti = 'Confetti',
+    starryNight = 'Starry Night',
 }
 
 export const ALL_PARTICLES = [
@@ -14,4 +15,5 @@ export const ALL_PARTICLES = [
     ParticleType.fruitShop,
     ParticleType.fireworks,
     ParticleType.confetti,
+    ParticleType.starryNight,
 ];
